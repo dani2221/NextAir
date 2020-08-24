@@ -1,5 +1,5 @@
-#Next Air - Air pollution prediction for North Macedonia using Machine Learning
+# Next Air - Air pollution prediction for North Macedonia using Machine Learning
 
-##Info
+## Info
 -to be added-
 
