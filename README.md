@@ -3,12 +3,12 @@
 ## Contents
 - Data tools for extracting and updating data for the firebase database ✅
 - Machine learning model that predicts next day AQI with mean absolute error of 13 points ✅
-###### Display next week AQI forecast and a interactive map that estimates the AQI for the user's location:
-- A React web-app
-- A Xamarin.forms Android app
+###### Display next week AQI forecast and an interactive map that estimates the AQI for the user's location:
+- A React.js web-app
+- A React-native mobile app
 
 ## Machine learning model
-The linear regression model was trained with 5 features (rain, wind, temprature, previous day AQI, previous year AQI) and more that 10000 rows of historical data from all the provided stations in North Macedonia.
+The regression algorithm was trained with 5 features (rain, wind, temprature, previous day AQI, previous year AQI) and more that 10000 rows of historical data from all the provided stations in North Macedonia.
 
 ## Data
 - The historical AQI data was provided by https://aqicn.org
