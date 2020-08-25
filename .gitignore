@@ -1,4 +1,8 @@
 /DataTools/Data
 /DataTools/node_modules
 /DataTools/package-lock.json
+/DataTools/package.json
+/Model/airPredict.pt
+/Model/AirPredictjs
+/Model/AirPredictLite.tflite
 /ENVIRONMENT.js
