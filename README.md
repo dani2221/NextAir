@@ -17,5 +17,5 @@ The regression algorithm was trained with 5 features (rain, wind, temprature, pr
 ## Tools
 - Tensorflow lite and tensorflow.js for the android and web app respectively.
 - Firebase Realtime Database
-- React.js and Xamarin.forms for the apps
+- React.js and React-native for the apps
 
