@@ -55,7 +55,7 @@ Promise.all(promises).then(res=>{
     console.log(qualityResults);
 
 
-    //update data in firebase database
+    //update data in firebase realtime database
 
     const dbCityNames = [bitola,gostivar,kavadarci,kicevo,kocani,kumanovo,strumica,tetovo,veles,'miladinovci','lisice','karposh','rektorat','gazi-baba','lazaropole','centar'];
 
