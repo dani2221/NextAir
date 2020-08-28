@@ -8,7 +8,7 @@
 /ENVIRONMENT.js
 
 /web-app/node_modules
-/src/ENVIRONMENT.js
+/web-app/src/ENVIRONMENT.js
 /web-app/src/firebaseconfig.js
 /web-app/.pnp
 /web-app.pnp.js
