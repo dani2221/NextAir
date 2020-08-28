@@ -7,9 +7,9 @@
 /Model/AirPredictLite.tflite
 /ENVIRONMENT.js
 
-
-
 /web-app/node_modules
+/src/ENVIRONMENT.js
+/web-app/src/firebaseconfig.js
 /web-app/.pnp
 /web-app.pnp.js
 /web-app/coverage
@@ -19,7 +19,6 @@
 /web-app.env.development.local
 /web-app.env.test.local
 /web-app.env.production.local
-/web-appnpm-debug.log*
-/web-appyarn-debug.log*
-/web-appyarn-error.log*
-
+/web-app/npm-debug.log*
+/web-app/yarn-debug.log*
+/web-app/yarn-error.log*

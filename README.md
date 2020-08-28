@@ -8,7 +8,7 @@
 - A React-native mobile app
 
 ## Machine learning model
-The regression algorithm was trained with 5 features (rain, wind, temprature, previous day AQI, previous year AQI) and more that 10000 rows of historical data from all the provided stations in North Macedonia.
+The regression algorithm was trained with 5 features (rain, wind, temprature, previous day AQI, previous year AQI) and more that 10000 rows of historical data from all the provided stations in Macedonia.
 
 ## Data
 - The historical AQI data was provided by https://aqicn.org
