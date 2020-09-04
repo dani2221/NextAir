@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {aqicnAPIkey} = require('../ENVIRONMENT.js')
+const aqicnAPIkey = 'a616531163a60a4cd364b7f6bb867526800c140c'
 
 //city constants
 const lisice = '41.96359;21.501174';
@@ -35,6 +35,7 @@ nameStations.map(el=>{
 const qualityResults = []
 Promise.all(promises).then(res=>{
     res.map(el=>{
+        console.log(el.data.data);
         try{
             let date = el.data.data.time.s.split(' ')[0]
             const rearange = date.split('-')
@@ -71,6 +72,14 @@ Promise.all(promises).then(res=>{
                 })
             }
         })
+        const name = res.name.toLowerCase();
+        if(name.includes('gazi baba')){
+            axios.patch('https://next-air.firebaseio.com/stations/gazi-baba.json',{[res.date]:res.q}).then(()=>{
+                console.log('gazi done')
+            }).catch(error=>{
+                console.log(error)
+            })
+        }
     })
 }).catch(err=>{
     console.log(err)
