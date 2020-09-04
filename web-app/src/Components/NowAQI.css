@@ -1,0 +1,24 @@
+.countup{
+    color: white;
+}
+.aqi{
+    font-size: 90px;
+}
+.mesurementLabels{
+    color: #6b6b6b;
+    font-style: italic;
+}
+select {
+    width: 150px;
+    cursor: pointer;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+    padding: 10px;
+}
+option {
+    background-color: #1f1f1f;
+    line-height: 50px;
+}
