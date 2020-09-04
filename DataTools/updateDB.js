@@ -1,5 +1,5 @@
 const axios = require('axios');
-const aqicnAPIkey = 'a616531163a60a4cd364b7f6bb867526800c140c'
+const {aqicnAPIkey} = require('../ENVIRONMENT')
 
 //city constants
 const lisice = '41.96359;21.501174';
