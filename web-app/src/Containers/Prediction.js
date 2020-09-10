@@ -6,6 +6,7 @@ import {WEATHER_KEY, AQI_KEY, MODEL_URL} from '../ENVIRONMENT'
 import NowAQI from '../Components/NowAQI'
 import stations_list from '../stations';
 import '../App.css'
+import News from './News'
 
 export default class Prediction extends Component{
     constructor(props){
@@ -23,6 +24,10 @@ export default class Prediction extends Component{
         selectedStation: 0,
         nowAQI:{
             loaded: false
+        },
+        statNews: {
+            yd: {},
+            mnt: {}
         }
     }
 
@@ -150,7 +155,8 @@ export default class Prediction extends Component{
             }else{
                 aqi=-1;
             }
-            predictions.push({name:'Денес',pm10:aqi});
+            const labelParam = 'pm2.5/pm10'
+            predictions.push({name:'Денес',[labelParam]:aqi});
             //use the model to get aqis for the next 5 days
             for(let i=0;i<dates.length;i++){
                 let date = dates[i];
@@ -180,7 +186,7 @@ export default class Prediction extends Component{
                 }
                 aqi = this.predict({...weatherData[i],day:aqi,year:lastyr})
                 const name = dates[i].split(':')[1]+'.'+dates[i].split(':')[0]
-                predictions.push({name:name,pm10:aqi});
+                predictions.push({name:name,[labelParam]:aqi});
             }
             predictions[1].name='Утре'
             console.log(predictions)
@@ -193,8 +199,9 @@ export default class Prediction extends Component{
                 const prevAQIs = [];
                 res.map((prevAQI,index)=>{
                     const name = prevDates[index].split(':')[1]+'.'+prevDates[index].split(':')[0]
-                    prevAQIs.push({name: name,pm10:prevAQI.data})
+                    prevAQIs.push({name: name,[labelParam]:prevAQI.data})
                 })
+                this.loadNewsStats(prevAQIs[0][labelParam])
                 prevAQIs.reverse()
                 prevAQIs[prevAQIs.length-1].name='Вчера'
                 const fullList = prevAQIs.concat(predictions)
@@ -230,20 +237,66 @@ export default class Prediction extends Component{
         this.setState({selectedStation: val,chartData:[]},this.refreshData);
     }
     refreshData = ()=>{
+        this.setState({statNews:{yd:''}})
         this.getNowAqi();
         this.getWeatherData().then(wd=>{
             this.getPredictions(wd)
         })
     }
 
+    loadNewsStats = yd =>{
+        let result = new Date();
+        result.setMonth(result.getMonth() - 1);
+        let dd = String(result.getDate()).padStart(2, '0');
+        if(dd.charAt(0)==0){
+            dd = dd.charAt(1)
+        }
+        let mm = String(result.getMonth() + 1).padStart(2, '0'); //January is 0!
+        if(mm.charAt(0)==0){
+            mm = mm.charAt(1)
+        }
+        let yyyy = result.getFullYear();
+        const finalDate = mm + ':' + dd + ':' + yyyy;
+        axios.get('https://next-air.firebaseio.com/stations/'+stations_list[this.state.selectedStation].f+'/'+finalDate+'.json').then(res=>{
+            const lastmn = res.data
+            let today;
+            if(this.state.nowAQI.pm25=='Непознато'){
+                if(this.state.nowAQI.pm10=='Непознато'){
+                    today=this.state.nowAQI.AQI;
+                }else{
+                    today=this.state.nowAQI.pm10;
+                }
+            }else{
+                today=this.state.nowAQI.pm25;
+            }
+            const statNews = {yd:{},mnt:{}};
+            if(today>yd){
+                const percent =  Math.floor(((today-yd)/yd)*100)+'%';
+                statNews.yd = {color: 'red',percent: percent, text: ' повеќе пм2.5 честички во споредба со вчера'}
+            }else{
+                const percent =  Math.floor(((yd-today)/today)*100)+'%';
+                statNews.yd = {color: 'green',percent: percent, text: ' помалку пм2.5 честички во споредба со вчера'}
+            }
+            if(today>lastmn){
+                const percent =  Math.floor(((today-lastmn)/lastmn)*100)+'%';
+                statNews.mnt = {color: 'red',percent: percent, text: ' повеќе пм2.5 честички во споредба со истиот ден пред еден месец'}
+            }else{
+                const percent =  Math.floor(((lastmn-today)/today)*100)+'%';
+                statNews.mnt = {color: 'green',percent: percent, text: ' помалку пм2.5 честички во споредба со истиот ден пред еден месец'}
+            }
+            console.log('mnt'+lastmn)
+            this.setState({statNews: statNews})
+        })
+    }
 
 
     render(){
         
         return(
-            <div style={{paddingLeft:'8%', paddingRight:'8%'}}>
+            <div>
                 {this.state.nowAQI.isLoaded?<NowAQI {...this.state.nowAQI} stations={stations_list} stationChange={val=>this.stationChanged(val)}/>:''}
-                {this.state.chartData.length>0?<PredictionChart chartData={this.state.chartData}/>:<div className="lds-ring"><div></div><div></div><div></div><div></div></div>}
+                {this.state.chartData.length>0?<PredictionChart chartData={this.state.chartData}/>:''}
+                {this.state.statNews.yd.color?<News stats={this.state.statNews}/>:<div className="lds-ring"><div></div><div></div><div></div><div></div></div>}
             </div>
         )
     }

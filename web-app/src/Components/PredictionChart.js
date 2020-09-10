@@ -17,12 +17,12 @@ const PredictionChart = props =>{
                     <stop offset="95%" stopColor="green" stopOpacity={0.8}/>
                 </linearGradient>
             </defs>
-            <LabelList dataKey="pm10" position="top" />
+            <LabelList dataKey="pm2.5/pm10" position="top" />
             <XAxis dataKey="name" tick={{ fill: 'white' }} />
             <YAxis tick={{ fill: 'white' }} />
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
-            <Area type="monotone" dataKey="pm10" stroke="#8884d8" fillOpacity={1} fill="url(#AQI)" />
+            <Area type="monotone" dataKey="pm2.5/pm10" stroke="#8884d8" fillOpacity={1} fill="url(#AQI)" />
             </AreaChart>
             </ResponsiveContainer>
         </div>

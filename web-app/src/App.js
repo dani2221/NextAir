@@ -8,6 +8,9 @@ import {
 } from "react-router-dom";
 import Prediction from './Containers/Prediction'
 import NowAQI from './Components/NowAQI';
+import News from './Containers/News';
+import HeatMap from './Components/HeatMap';
+import LandingPage from './Containers/LandingPage';
 
 function App() {
   useEffect(()=>{document.body.style = 'background: #121212;';})
@@ -15,7 +18,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path='/' component={Prediction}/>
+          <Route exact path='/' component={LandingPage}/>
         </Switch>
       </Router>
 
